@@ -13056,7 +13056,7 @@ In the code block below, you will need to implement the following:</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import two metrics from sklearn - fbeta_score and accuracy_score</span>
@@ -13970,7 +13970,7 @@ I think the best model would be the Logistic Regression model. The Decision Tree
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong> 
-Our final model is Logistic Regression. In this problem our goal is to predict which person will donate and which one won't. This type of problem called classification problem which means in our case there are two classes, one positive class(will donate) and a negative class(won't donate) and Logistic Regression is good at solving these problems. Logistic Regression makes predictions by using probability, so based on the input data the model will predict a probability, if this probability is above than a specific value(threshold) then the model will output 1 and 0 otherwise.</p>
+Our final model is Logistic Regression. In this problem our goal is to predict which person will donate and which one won't. This type of problem called classification problem which means in our case there are two classes, one positive class(will donate) and a negative class(won't donate) and Logistic Regression is good at solving these problems. Logistic Regression makes predictions by using probability. So Logistic Regression takes features about individuals whose census data is known(age, sex, education-level, etc) and creates a model that assigns a "weight" to these features, which best fits the data ,but we have to be careful here because we can overfit the data, which means we believe too much in the data, but we don't want this, because we want the model to generelize well on unseen datas, so we want to fit our data "just right". When we want to predict an outcome for a new potential donor, we take the individual's features and combine them with the "weights" what the Logistic Regression model learnt from the previous datas(training datas), then the final summed up value is applied to a special equation (called a "sigmoid function") which predicts a  continious value between 0 and 1 which represents the probability for that the individual has a positive output label, then if this probability value is bigger than a certain value(called "threshold") then the outcome(output label) of the new potential donor will be 1 and 0 otherwise.</p>
 
 </div>
 </div>
