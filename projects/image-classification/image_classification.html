@@ -12401,12 +12401,11 @@ Keep Prob Tests Passed.
 <span class="sd">    : return: A tensor that represents convolution and max pooling of x_tensor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: Implement Function</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">conv_ksize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">tensor_param</span> <span class="o">=</span> <span class="n">x_tensor</span><span class="o">.</span><span class="n">get_shape</span><span class="p">()</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
     <span class="n">depth</span> <span class="o">=</span> <span class="n">tensor_param</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">ksize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">pool_ksize</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pool_ksize</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">]</span>
     <span class="n">strides</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">pool_strides</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pool_strides</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">([</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="p">]))</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">((</span><span class="n">conv_ksize</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">conv_ksize</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">depth</span><span class="p">,</span> <span class="n">conv_num_outputs</span><span class="p">),</span> <span class="n">stddev</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
     <span class="n">bias</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">conv_num_outputs</span><span class="p">))</span>
     <span class="n">conv1_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">conv_strides</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">conv_strides</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;SAME&#39;</span><span class="p">)</span>
     <span class="n">conv1_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">bias_add</span><span class="p">(</span><span class="n">conv1_layer</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
@@ -12532,7 +12531,7 @@ Tests Passed
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: Implement Function</span>
     <span class="n">params</span> <span class="o">=</span> <span class="n">x_tensor</span><span class="o">.</span><span class="n">get_shape</span><span class="p">()</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
-    <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">([</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_outputs</span><span class="p">]))</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">([</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_outputs</span><span class="p">],</span> <span class="n">stddev</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
     <span class="n">bias</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_outputs</span><span class="p">))</span>
     <span class="n">fc_layer</span> <span class="o">=</span>  <span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">bias</span><span class="p">)</span>
     <span class="n">fc_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">fc_layer</span><span class="p">)</span>
@@ -12597,7 +12596,7 @@ Tests Passed
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: Implement Function</span>
     <span class="n">params</span> <span class="o">=</span> <span class="n">x_tensor</span><span class="o">.</span><span class="n">get_shape</span><span class="p">()</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
-    <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">([</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_outputs</span><span class="p">]))</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">([</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_outputs</span><span class="p">],</span> <span class="n">stddev</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
     <span class="n">bias</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_outputs</span><span class="p">))</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">bias</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output layer shape: &quot;</span><span class="p">)</span>
@@ -12656,7 +12655,7 @@ Tests Passed
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">conv_net</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">):</span>
@@ -12688,6 +12687,8 @@ Tests Passed
     
     <span class="n">fc_layer1</span> <span class="o">=</span> <span class="n">fully_conn</span><span class="p">(</span><span class="n">flatten_layer1</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
     <span class="n">fc_layer1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">fc_layer1</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
+    <span class="n">fc_layer2</span> <span class="o">=</span> <span class="n">fully_conn</span><span class="p">(</span><span class="n">fc_layer1</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+    <span class="n">fc_layer2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">fc_layer2</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
 
     
     <span class="c1"># TODO: Apply an Output Layer</span>
@@ -12695,7 +12696,7 @@ Tests Passed
     <span class="c1"># Function Definition from Above:</span>
     <span class="c1">#   output(x_tensor, num_outputs)</span>
     
-    <span class="n">out</span> <span class="o">=</span> <span class="n">output</span><span class="p">(</span><span class="n">fc_layer1</span> <span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">output</span><span class="p">(</span><span class="n">fc_layer2</span> <span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
     
     <span class="c1"># TODO: return output</span>
     <span class="k">return</span> <span class="n">out</span>
@@ -12758,6 +12759,9 @@ Flatten layer shape:
 Fully connected layer shape: 
 [None, 1024]
 --------------------
+Fully connected layer shape: 
+[None, 1024]
+--------------------
 Output layer shape: 
 [None, 10]
 --------------------
@@ -12769,6 +12773,9 @@ Conv layer shape:
 --------------------
 Flatten layer shape: 
 [None, 256]
+--------------------
+Fully connected layer shape: 
+[None, 1024]
 --------------------
 Fully connected layer shape: 
 [None, 1024]
@@ -12804,7 +12811,7 @@ Neural Network Built!
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_neural_network</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">keep_probability</span><span class="p">,</span> <span class="n">feature_batch</span><span class="p">,</span> <span class="n">label_batch</span><span class="p">):</span>
@@ -12852,7 +12859,7 @@ Neural Network Built!
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">print_stats</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">feature_batch</span><span class="p">,</span> <span class="n">label_batch</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">):</span>
@@ -12865,8 +12872,6 @@ Neural Network Built!
 <span class="sd">    : accuracy: TensorFlow accuracy function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: Implement Function</span>
-    <span class="n">init</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">global_variables_initializer</span><span class="p">()</span>
-    <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">init</span><span class="p">)</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">feature_batch</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">label_batch</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
     <span class="n">valid_acc</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">valid_features</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">valid_labels</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loss: </span><span class="si">{:&gt;10.4f}</span><span class="s1"> - Validation Accuracy: </span><span class="si">{:.6f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">valid_acc</span><span class="p">))</span>
@@ -12911,13 +12916,13 @@ Neural Network Built!
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Tune Parameters</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">40</span>
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">128</span>
-<span class="n">keep_probability</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">keep_probability</span> <span class="o">=</span> <span class="mf">0.75</span>
 </pre></div>
 
 </div>
@@ -12937,7 +12942,7 @@ Neural Network Built!
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12970,16 +12975,19 @@ Neural Network Built!
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Checking the Training on a Single Batch...
-Epoch  1, CIFAR-10 Batch 1:  Loss:  7548.0732 - Validation Accuracy: 0.096800
-Epoch  2, CIFAR-10 Batch 1:  Loss:  4218.1562 - Validation Accuracy: 0.105200
-Epoch  3, CIFAR-10 Batch 1:  Loss:  4778.5742 - Validation Accuracy: 0.104200
-Epoch  4, CIFAR-10 Batch 1:  Loss:  5954.5522 - Validation Accuracy: 0.098200
-Epoch  5, CIFAR-10 Batch 1:  Loss:  2608.9297 - Validation Accuracy: 0.073600
-Epoch  6, CIFAR-10 Batch 1:  Loss:  5438.4795 - Validation Accuracy: 0.106000
-Epoch  7, CIFAR-10 Batch 1:  Loss:  6465.0093 - Validation Accuracy: 0.103000
-Epoch  8, CIFAR-10 Batch 1:  Loss:  2553.3701 - Validation Accuracy: 0.107400
-Epoch  9, CIFAR-10 Batch 1:  Loss:  1898.4727 - Validation Accuracy: 0.092200
-Epoch 10, CIFAR-10 Batch 1:  Loss:  3009.9099 - Validation Accuracy: 0.094000
+Epoch  1, CIFAR-10 Batch 1:  Loss:   120.9477 - Validation Accuracy: 0.096800
+Epoch  2, CIFAR-10 Batch 1:  Loss:   132.9012 - Validation Accuracy: 0.105400
+Epoch  3, CIFAR-10 Batch 1:  Loss:   189.9630 - Validation Accuracy: 0.098400
+Epoch  4, CIFAR-10 Batch 1:  Loss:   152.2705 - Validation Accuracy: 0.115200
+Epoch  5, CIFAR-10 Batch 1:  Loss:    86.3646 - Validation Accuracy: 0.084000
+Epoch  6, CIFAR-10 Batch 1:  Loss:   163.4502 - Validation Accuracy: 0.108800
+Epoch  7, CIFAR-10 Batch 1:  Loss:   111.1720 - Validation Accuracy: 0.121200
+Epoch  8, CIFAR-10 Batch 1:  Loss:   158.9395 - Validation Accuracy: 0.099000
+Epoch  9, CIFAR-10 Batch 1:  Loss:   155.3351 - Validation Accuracy: 0.100600
+Epoch 10, CIFAR-10 Batch 1:  Loss:    62.2277 - Validation Accuracy: 0.083000
+Epoch 11, CIFAR-10 Batch 1:  Loss:   126.6384 - Validation Accuracy: 0.101200
+Epoch 12, CIFAR-10 Batch 1:  Loss:   177.9536 - Validation Accuracy: 0.104800
+Epoch 13, CIFAR-10 Batch 1:  Loss:   156.9357 - Validation Accuracy: 0.098800
 </pre>
 </div>
 </div>
@@ -13032,69 +13040,6 @@ Epoch 10, CIFAR-10 Batch 1:  Loss:  3009.9099 - Validation Accuracy: 0.094000
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Training...
-Epoch  1, CIFAR-10 Batch 1:  Loss:  3781.9968 - Validation Accuracy: 0.101400
-Epoch  1, CIFAR-10 Batch 2:  Loss:  5509.9580 - Validation Accuracy: 0.102400
-Epoch  1, CIFAR-10 Batch 3:  Loss:  3223.9670 - Validation Accuracy: 0.104200
-Epoch  1, CIFAR-10 Batch 4:  Loss:  6281.9956 - Validation Accuracy: 0.098600
-Epoch  1, CIFAR-10 Batch 5:  Loss:  4508.2979 - Validation Accuracy: 0.082200
-Epoch  2, CIFAR-10 Batch 1:  Loss:  3662.3315 - Validation Accuracy: 0.100800
-Epoch  2, CIFAR-10 Batch 2:  Loss:  2388.6858 - Validation Accuracy: 0.122000
-Epoch  2, CIFAR-10 Batch 3:  Loss:  8009.6406 - Validation Accuracy: 0.089400
-Epoch  2, CIFAR-10 Batch 4:  Loss:  8814.3496 - Validation Accuracy: 0.109000
-Epoch  2, CIFAR-10 Batch 5:  Loss:  3847.1257 - Validation Accuracy: 0.094600
-Epoch  3, CIFAR-10 Batch 1:  Loss:  3576.5847 - Validation Accuracy: 0.109600
-Epoch  3, CIFAR-10 Batch 2:  Loss:  4068.5227 - Validation Accuracy: 0.093600
-Epoch  3, CIFAR-10 Batch 3:  Loss:  3521.7883 - Validation Accuracy: 0.095200
-Epoch  3, CIFAR-10 Batch 4:  Loss:  2423.5452 - Validation Accuracy: 0.104600
-Epoch  3, CIFAR-10 Batch 5:  Loss:  3234.5317 - Validation Accuracy: 0.095000
-Epoch  4, CIFAR-10 Batch 1:  Loss:  5369.8511 - Validation Accuracy: 0.110200
-Epoch  4, CIFAR-10 Batch 2:  Loss:  4955.7769 - Validation Accuracy: 0.094200
-Epoch  4, CIFAR-10 Batch 3:  Loss:  3006.1743 - Validation Accuracy: 0.113200
-Epoch  4, CIFAR-10 Batch 4:  Loss:  6186.1929 - Validation Accuracy: 0.097600
-Epoch  4, CIFAR-10 Batch 5:  Loss:  4079.9429 - Validation Accuracy: 0.096200
-Epoch  5, CIFAR-10 Batch 1:  Loss:  2055.5979 - Validation Accuracy: 0.069000
-Epoch  5, CIFAR-10 Batch 2:  Loss:  3728.2407 - Validation Accuracy: 0.094800
-Epoch  5, CIFAR-10 Batch 3:  Loss:  3617.2944 - Validation Accuracy: 0.108600
-Epoch  5, CIFAR-10 Batch 4:  Loss:  2426.4661 - Validation Accuracy: 0.087400
-Epoch  5, CIFAR-10 Batch 5:  Loss:  4184.3604 - Validation Accuracy: 0.093800
-Epoch  6, CIFAR-10 Batch 1:  Loss:  2886.6550 - Validation Accuracy: 0.107600
-Epoch  6, CIFAR-10 Batch 2:  Loss:  6623.4111 - Validation Accuracy: 0.100400
-Epoch  6, CIFAR-10 Batch 3:  Loss:  5046.4712 - Validation Accuracy: 0.114000
-Epoch  6, CIFAR-10 Batch 4:  Loss:  3340.1855 - Validation Accuracy: 0.092000
-Epoch  6, CIFAR-10 Batch 5:  Loss:  5688.4111 - Validation Accuracy: 0.097800
-Epoch  7, CIFAR-10 Batch 1:  Loss:  6689.4399 - Validation Accuracy: 0.105600
-Epoch  7, CIFAR-10 Batch 2:  Loss:  5917.7959 - Validation Accuracy: 0.093800
-Epoch  7, CIFAR-10 Batch 3:  Loss:  3735.4504 - Validation Accuracy: 0.107400
-Epoch  7, CIFAR-10 Batch 4:  Loss:  4220.9805 - Validation Accuracy: 0.112000
-Epoch  7, CIFAR-10 Batch 5:  Loss:  8470.9775 - Validation Accuracy: 0.099800
-Epoch  8, CIFAR-10 Batch 1:  Loss:  3677.2317 - Validation Accuracy: 0.091400
-Epoch  8, CIFAR-10 Batch 2:  Loss:  4018.7844 - Validation Accuracy: 0.093800
-Epoch  8, CIFAR-10 Batch 3:  Loss:  2176.5898 - Validation Accuracy: 0.102800
-Epoch  8, CIFAR-10 Batch 4:  Loss:  1914.1461 - Validation Accuracy: 0.097000
-Epoch  8, CIFAR-10 Batch 5:  Loss:  8337.8027 - Validation Accuracy: 0.102000
-Epoch  9, CIFAR-10 Batch 1:  Loss:  8303.7256 - Validation Accuracy: 0.102600
-Epoch  9, CIFAR-10 Batch 2:  Loss:  3942.4028 - Validation Accuracy: 0.103800
-Epoch  9, CIFAR-10 Batch 3:  Loss:  2789.6340 - Validation Accuracy: 0.099400
-Epoch  9, CIFAR-10 Batch 4:  Loss:  8808.3867 - Validation Accuracy: 0.099400
-Epoch  9, CIFAR-10 Batch 5:  Loss:  3734.4558 - Validation Accuracy: 0.106800
-Epoch 10, CIFAR-10 Batch 1:  Loss:  5948.7627 - Validation Accuracy: 0.084200
-Epoch 10, CIFAR-10 Batch 2:  Loss:  5410.7490 - Validation Accuracy: 0.091600
-Epoch 10, CIFAR-10 Batch 3:  </pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -13109,7 +13054,7 @@ Epoch 10, CIFAR-10 Batch 3:  </pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -13178,50 +13123,6 @@ Epoch 10, CIFAR-10 Batch 3:  </pre>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">OSError</span>                                   Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-1-46737803360c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     61</span> 
-<span class="ansi-green-intense-fg ansi-bold">     62</span> 
-<span class="ansi-green-fg">---&gt; 63</span><span class="ansi-red-fg"> </span>test_model<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-1-46737803360c&gt;</span> in <span class="ansi-cyan-fg">test_model</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     31</span>     <span class="ansi-green-fg">with</span> tf<span class="ansi-blue-fg">.</span>Session<span class="ansi-blue-fg">(</span>graph<span class="ansi-blue-fg">=</span>loaded_graph<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">as</span> sess<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     32</span>         <span class="ansi-red-fg"># Load model</span>
-<span class="ansi-green-fg">---&gt; 33</span><span class="ansi-red-fg">         </span>loader <span class="ansi-blue-fg">=</span> tf<span class="ansi-blue-fg">.</span>train<span class="ansi-blue-fg">.</span>import_meta_graph<span class="ansi-blue-fg">(</span>save_model_path <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">&#39;.meta&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     34</span>         loader<span class="ansi-blue-fg">.</span>restore<span class="ansi-blue-fg">(</span>sess<span class="ansi-blue-fg">,</span> save_model_path<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     35</span> 
-
-<span class="ansi-green-fg">/home/programer/.local/lib/python3.5/site-packages/tensorflow/python/training/saver.py</span> in <span class="ansi-cyan-fg">import_meta_graph</span><span class="ansi-blue-fg">(meta_graph_or_file, clear_devices, import_scope, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1557</span>   &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">   1558</span>   <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> isinstance<span class="ansi-blue-fg">(</span>meta_graph_or_file<span class="ansi-blue-fg">,</span> meta_graph_pb2<span class="ansi-blue-fg">.</span>MetaGraphDef<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1559</span><span class="ansi-red-fg">     </span>meta_graph_def <span class="ansi-blue-fg">=</span> meta_graph<span class="ansi-blue-fg">.</span>read_meta_graph_file<span class="ansi-blue-fg">(</span>meta_graph_or_file<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1560</span>   <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1561</span>     meta_graph_def <span class="ansi-blue-fg">=</span> meta_graph_or_file
-
-<span class="ansi-green-fg">/home/programer/.local/lib/python3.5/site-packages/tensorflow/python/framework/meta_graph.py</span> in <span class="ansi-cyan-fg">read_meta_graph_file</span><span class="ansi-blue-fg">(filename)</span>
-<span class="ansi-green-intense-fg ansi-bold">    400</span>   meta_graph_def <span class="ansi-blue-fg">=</span> meta_graph_pb2<span class="ansi-blue-fg">.</span>MetaGraphDef<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    401</span>   <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> file_io<span class="ansi-blue-fg">.</span>file_exists<span class="ansi-blue-fg">(</span>filename<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 402</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">raise</span> IOError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;File %s does not exist.&#34;</span> <span class="ansi-blue-fg">%</span> filename<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    403</span>   <span class="ansi-red-fg"># First try to read it as a binary file.</span>
-<span class="ansi-green-intense-fg ansi-bold">    404</span>   file_content <span class="ansi-blue-fg">=</span> file_io<span class="ansi-blue-fg">.</span>read_file_to_string<span class="ansi-blue-fg">(</span>filename<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">OSError</span>: File ./image_classification.meta does not exist.</pre>
-</div>
-</div>
-
 </div>
 </div>
 
