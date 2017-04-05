@@ -44,12 +44,7 @@ class LearningAgent(Agent):
             self.epsilon = 0
             self.aplha = 0
         else:
-            self.epsilon = math.cos(self.decreaser)
-            if self.decreaser < 1.55:
-                self.decreaser += 0.005
-            else:
-                self.decreaser = self.decreaser
-
+            self.epsilon = self.epsilon - 0.05
         return None
 
     def build_state(self):
@@ -66,7 +61,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set 'state' as a tuple of relevant data for the agent
-        state = (waypoint, inputs["light"], inputs["oncoming"])
+        state = (waypoint, inputs["light"], inputs["oncoming"], inputs["left"])
 
         return state
 
