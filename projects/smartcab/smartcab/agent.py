@@ -24,7 +24,6 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set any additional class parameters as needed
-        self.decreaser = 0
 
 
     def reset(self, destination=None, testing=False):
@@ -44,7 +43,7 @@ class LearningAgent(Agent):
             self.epsilon = 0
             self.aplha = 0
         else:
-            self.epsilon = self.epsilon - 0.05
+            self.epsilon = self.epsilon - 0.005
         return None
 
     def build_state(self):
@@ -77,8 +76,7 @@ class LearningAgent(Agent):
         if state not in self.Q:
             maxQ = None
         else:
-            max_action = max(self.Q[state])
-            maxQ = self.Q[state][max_action]
+            maxQ = max(self.Q[state].values())
         return maxQ
 
 
@@ -92,9 +90,9 @@ class LearningAgent(Agent):
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
         if self.learning == True:
-            state_in = state in self.Q
-            if state_in == False:
+            if state not in self.Q:
                 self.Q[state] = {None : 0.0, "forward" : 0.0, "left" : 0.0, "right" : 0.0}
+                self.Q[state] = {action: 0.0 for action in self.valid_actions}
 
         return
 
@@ -116,11 +114,11 @@ class LearningAgent(Agent):
             action = self.valid_actions[random.randint(0,3)]
         else:
             maxQval = self.get_maxQ(state)
-            valid_actions = []
-            for element in self.Q[state]:
-                if self.Q[state][element] == maxQval:
-                    valid_actions.append(element)
-            action = valid_actions[random.randint(0,len(valid_actions)-1)]
+            best_actions = []
+            for action in self.valid_actions:
+                if self.Q[state][action] == maxQval:
+                    best_actions.append(action)
+            action = random.choice(best_actions)
         return action
 
 
@@ -134,7 +132,7 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-        if self.learning == True:
+        if self.learning:
             self.Q[state][action] = (1-self.alpha) * self.Q[state][action] + self.alpha * (reward)
 
         return
@@ -152,7 +150,6 @@ class LearningAgent(Agent):
         self.learn(state, action, reward)   # Q-learn
 
         return
-        
 
 def run():
     """ Driving function for running the simulation. 
@@ -187,14 +184,14 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=0.01, log_metrics=True)
+    sim = Simulator(env, update_delay=0.0, log_metrics=True, optimized=True)
     
     ##############
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=10)
+    sim.run(n_test=100)
 
 
 if __name__ == '__main__':
