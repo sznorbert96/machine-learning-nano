@@ -11892,8 +11892,12 @@ div#notebook {
 <ul>
 <li>No it is not moving.</li>
 <li>It gets negative and positive rewards</li>
-<li>When the light is green it gets smaller reward than when the light is red. This behaviour caused by the fact that the car is not moving, so when the light is red it behaves normally, but when the light is green it behaves abnormally.</li>
+<li>When the light is green it gets smaller reward than when the light is red (when the agent idles at green light it gets negative reward, if the agent idles when the light is red it gets positive reward). This behaviour caused by the fact that the car is not moving, so when the light is red it behaves normally, but when the light is green and there is no traffic, it behaves abnormally.</li>
+<li>When the light is green and there is oncoming traffic the agent gets really small positive reward for idling.</li>
 </ul>
+<p>Here is the log for it:
+Agent previous state: ('forward', 'green', 'left', None)
+Agent idled at green light with oncoming traffic. (rewarded 0.21)</p>
 
 </div>
 </div>
@@ -13131,6 +13135,7 @@ enGcZt9bRAAAAABJRU5ErkJggg==
 <li>On the graph it seems like the agent got only negative rewards, but if we check the prompt while the "agent.py" is running, we can see there are positive values too. So my conclusion is the bad actions are penalized heavily.</li>
 <li>No, as the number of trials increases the outcome of results doesn't change significantly. The Relative Frequency is wiggling around 0.3884 and 0.4370. The reward per action is increasing a little bit over time, but the ammount of this change isn't significant. The Rate of Reliability seems like it improves over time but the change here isn't significant neither. </li>
 <li>This Smartcab wouldn't be considered reliable at all. It isn't reliable because, it has less than 20% reliability which is bad for a self driving car.</li>
+<li>The smartcab caused accident around 10% of the time (Minor accident + Major accident), this number didn't change significantly over time.</li>
 </ol>
 
 </div>
@@ -14493,7 +14498,7 @@ RU5ErkJggg==
 <p><strong>Answer:</strong></p>
 <ol>
 <li>Yeah there is. With default Q-Learning the overall bad moves are less than at the basic driving agent, but the number of major accidents and the minor accidents are almost the same. The major violations and the minor violations with default Q-Learning are decreasing over time.</li>
-<li>It took around 10 training trials in this case.</li>
+<li>It took 20 training trials in this case. (1 - 0.05 x 20 == 0 &lt; 0.5)</li>
 <li>Yes, as the number of training trials increased , the number of bad actions did decrease, and yes the avarage reward increased.</li>
 <li>The safety and the reliability ratings are the same as before.</li>
 </ol>
@@ -16497,9 +16502,9 @@ SZIkqUdMsCRJkiSpR0ywJEmSJKlHTLAkSZIkqUf+AoAUS1sKSkTwAAAAAElFTkSuQmCC
 <p><strong>Answer:</strong></p>
 <ol>
 <li>decaying function was: epsilon - 0.005</li>
-<li>It took around 100 training trials.</li>
+<li>It took 190 training trials. (1 - 0.005 x 190 == 0 &lt; 0.005)</li>
 <li>I used 0.95 for epsilon, and I used the basic value for alpha.</li>
-<li>It improved a lot. The Safety Rating went from "F" to "A+" and the Reliability Rating went from "F" to "A".</li>
+<li>It improved a lot. The Safety Rating went from "F" to "A+" and the Reliability Rating went from "F" to "A". Here at the end of the simulation the Total Bad Actions decreased to 5%, with default Q-Learning this number was roughly 17%. The numbers of the Major and Minor accidents also decreased under to 2%, with default Q-Learning the numbers of these accidents were 8% of the total actions. We can also see that , here the Avarage Reward per action at the end of the simulation stoped around 1.5 , with default Q-Learning it was -2.</li>
 <li>Yes, it learned an appropriate policy.</li>
 <li>I would say yes, but the Reliability could be better.</li>
 </ol>
@@ -16541,12 +16546,13 @@ I searched for this state in the sim_improved-learning.txt file and I found this
  -- None : -5.44
  -- left : 1.48</p>
 <p>This results matchs with my thoughts. The "left" action has the highest reward which is 1.48, which seems legit because our goal is to turn left. The "forward" and the "right" actions have positive rewards but these rewards are less than the reward for "left" so these actions are suboptimal actions, and the worst action to take is "None", it has -5.44, which is reasonable because with green light, and no oncoming traffic to wait would be a bad action.</p>
-<p>I was looking for a suboptimal policy in the log file but I'm not sure if it is a suboptimal policy, but I found this state strange:</p>
+<p>I found this state strange:</p>
 <p>('forward', 'green', 'right', 'right')
  -- forward : 0.00
  -- right : 0.33
  -- None : 0.00
  -- left : 0.00</p>
+<p>Here the optimal action would be "forward" but it turns "right" because it has the highest reward which is 0.33, so I think this is a sub-optimal policy. This kind of sub-optimal policies can cause reability problems.</p>
 
 </div>
 </div>
