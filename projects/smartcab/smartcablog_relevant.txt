@@ -1,0 +1,2 @@
+Agent previous state: ('forward', 'green', 'left', None)
+Agent idled at green light with oncoming traffic. (rewarded 0.21)
